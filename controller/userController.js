@@ -6,9 +6,6 @@ const db = require('../model/userModel');
 const secretKey = process.env.SECRET_KEY;
 let query = null;
 
-// user fields be like: username, email, password (to be encrypted before storing), created_at, updated_at
-// api like: login, register, update, delete, get all users, get user by id, get user by username, get user by email
-
 exports.registerUser = async (req, res) => {
 
     const { username, email, password } = req.body;
@@ -74,7 +71,7 @@ exports.getAllUsers = (req, res) => {
 
 exports.getUserById = (req, res) => {
     query = `SELECT id, username, email, created_at, updated_at FROM users WHERE id=?`;
-    db.query(query,[req.params.id], (err, result) => {
+    db.query(query, [req.params.id], (err, result) => {
         if (err || result.length === 0) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -82,27 +79,42 @@ exports.getUserById = (req, res) => {
     })
 }
 
-exports.getUserByUsername = (req, res) =>{
+exports.getUserByUsername = (req, res) => {
     query = `SELECT id, username, email, created_at, updated_at FROM users WHERE username=?`;
     db.query(query, [req.params.username], (err, result) => {
-        if(err || result.length === 0) {
-            res.status(404).json({message: 'User not found'});
+        if (err || result.length === 0) {
+            res.status(404).json({ message: 'User not found' });
         }
         res.json(result[0]);
     });
 }
 
-exports.getUserByEmail = (req, res) =>{
+exports.getUserByEmail = (req, res) => {
     query = `SELECT id, username, email, created_at, updated_at FROM users WHERE email=?`;
     db.query(query, [req.params.email], (err, result) => {
-        if(err || result.length === 0) {
-            res.status(404).json({message: 'User not found'});
+        if (err || result.length === 0) {
+            res.status(404).json({ message: 'User not found' });
         }
         res.json(result[0]);
     });
 }
 
+exports.updateUser = (req, res) => {
+    query = `UPDATE users SET username=? email=? update_at=CURRENT_TIMESTAMP where id=?`;
+    db.query(query, [req.body.username, req.body.email, req.params.id], (err, result) => {
+        if (err || result.affectedRows === 0) {
+            return res.status(400).json({ message: 'Update failed' });
+        }
+        res.json({ message: 'User successfully updated', result });
+    });
+}
 
-
-
-
+exports.deleteUser = (req, res) => {
+    query = `DELETE FROM users WHERE id=?`;
+    db.query(query, [req.params.id], (err, result) => {
+        if (err || result.affectedRows === 0) {
+            return res.status(400).json({ message: 'Delete failed' });
+        }
+        res.json({ message: `User with ID ${req.params.id} successully deleted` });
+    })
+}
