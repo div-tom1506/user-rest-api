@@ -33,8 +33,8 @@ Create a .env file in the root directory and add the following:
     PORT=3000
     DB_HOST=localhost
     DB_USER=root
-    DB_PASSWORD=password
-    DB_NAME=user_db
+    DB_PASSWORD=your_password
+    DATABASE_NAME=user_db
     SECRET_KEY=your_secret_key
 
 ### Start the Server
@@ -47,12 +47,20 @@ or (for development with auto-restart)
 
 ## API Endpoints
 ### Authentication
+| Method | Endpoint | Description |
+|--------|---------|------------|
+| **POST** | `/api/register` | Register a new user |
+| **POST** | `/api/login` | Authenticate a user and get a JWT token |
 
-// to add endpoints of login and registartion APIs
-
-### User Management
-
-// to add endpoints of user mansgement APIs
+### User Management (Requires Authentication)
+| Method | Endpoint | Description |
+|--------|---------|------------|
+| **GET** | `/api/users` | Get all users |
+| **GET** | `/api/users/:id` | Get user by ID |
+| **GET** | `/api/users/username/:username` | Get user by username |
+| **GET** | `/api/users/email/:email` | Get user by email |
+| **PUT** | `/api/users/update/:id` | Update user |
+| **DELETE** | `/api/users/delete/:id` | Delete user |
 
 #### Protected routes require the Authorization token in headers:
 
