@@ -3,7 +3,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const userController = require('../controller/userController');
 
-// fn for handling authentication token
+// fn for verifying authentication token
 const secretKey = process.env.SECRET_KEY;
 const authenticateToken = (req, res, next) => {
     const token = req.headers('Authorization');
