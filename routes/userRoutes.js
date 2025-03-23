@@ -6,7 +6,7 @@ const userController = require('../controller/userController');
 // fn for verifying authentication token
 const secretKey = process.env.SECRET_KEY;
 const authenticateToken = (req, res, next) => {
-    const token = req.headers('Authorization');
+    const token = req.header('Authorization');
     if (!token) {
         return res.status(401).json({message: 'Access denied'});
     }
