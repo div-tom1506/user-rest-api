@@ -1,6 +1,18 @@
 # Node.js Express API with MySQL
 A simple User Management API built using Node.js, Express, MySQL, and JWT Authentication with a structured MVC architecture.
 
+## Tech Stack
+
+**Backend:** Node.js, Express.js
+
+**Database:** MySQL
+
+**Authentication:** JWT (JSON Web Token)
+
+**Security:** bcrypt (Password Hashing)
+
+**Logging:** Morgan
+
 ## Project Structure
 
     /nodejs-express-api
@@ -65,18 +77,6 @@ or (for development with auto-restart)
 #### Protected routes require the Authorization token in headers:
 
     Authorization: Bearer <your-token>
-
-## Tech Stack
-
-**Backend:** Node.js, Express.js
-
-**Database:** MySQL
-
-**Authentication:** JWT (JSON Web Token)
-
-**Security:** bcrypt (Password Hashing)
-
-**Logging:** Morgan
 
 ## License
 This project is MIT Licensed.
